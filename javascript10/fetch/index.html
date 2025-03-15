@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+
+  <div
+    id="profile"
+    style="display: flex; flex-wrap: wrap; justify-content: center"
+  ></div>
+
+  <body>
+    <script>
+      function fetchdata() {
+        fetch("https://fakestoreapi.com/products")
+          .then((res) => res.json())
+          .then((data) => cardlist(data))
+          .catch((err) => console.log(err));
+      }
+      fetchdata();
+
+      function cardlist(data) {
+        let store = data.map((el) =>
+          card(el.id, el.image, el.category, el.description)
+        );
+        document.getElementById("profile").innerHTML = store.join("");
+      }
+      function card(id, image, category, description) {
+        let card = `
+        <div style="border: 2px solid black; margin: 10px; padding: 10px; width: 250px;">
+         <h1>id: ${id}</h1>
+         <img src="${image}" height="200px" width="200px" alt="Product Image" />
+         <p>Category: ${category}</p>
+         <i>Description: ${description}</i>
+        </div>
+    `;
+        return card;
+      }
+    </script>
+  </body>
+</html>

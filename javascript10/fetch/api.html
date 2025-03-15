@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div
+    id="profile"
+    style="display: flex; flex-wrap: wrap; justify-content: center"
+  ></div>
+
+  <body>
+    <script>
+      function fetchdata() {
+        fetch("https://reqres.in/api/users?page=2")
+          .then((res) => res.json())
+          .then((data) => cardlist(data))
+          .catch((err) => console.log(err));
+      }
+      fetchdata();
+
+      function cardlist(datas) {
+        let store = datas.data.map((el) =>
+          card(el.id, el.email, el.first_name, el.last_name,el.avatar)
+        );
+        document.getElementById("profile").innerHTML = store.join("");
+      }
+      function card(id, email,first_name,last_name,avatar) {
+        let card = `
+        <div style="border: 2px solid black; margin: 10px; padding: 10px; width: 200px; text-align: center;">
+         <h1>id: ${id}</h1>
+         <p>Email:${email}</p>
+         <p>First_name:${first_name}</p>
+         <p>Last_name:${last_name}</p>
+         <img src="${avatar}" height="200px" width="200px" style="border-radius: 50%;" alt="Product Image" />
+        </div>
+    `;
+        return card;
+      }
+    </script>
+  </body>
+</html>
